@@ -24,6 +24,9 @@
 
 	body {
 		@apply from-black via-cyan-900 to-gray-900;
+		/* font-family: 'Bona Nova', serif;
+		font-family: 'Eagle Lake', cursive;
+		font-family: 'IM Fell French Canon SC', serif; */
 	}
 }
 

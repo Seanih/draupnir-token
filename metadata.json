@@ -1,0 +1,36 @@
+{
+	"description": "This NFT proves I've created and deployed my first ERC20 smart contract on Goerli with Alchemy Road to Web3",
+	"external_url": "https://draupnirtokenproject.vercel.app",
+	"image": "https://ipfs.filebase.io/ipfs/QmR9BLCSETwpcfMroPcb6ouur1qT4RKcSNzfQAtVdeACYc",
+	"name": "Draupnir Token",
+	"attributes": [
+		{
+			"trait_type": "Forger",
+			"value": "Hephaestus"
+		},
+		{
+			"trait_type": "Divine",
+			"value": "Yes"
+		},
+		{
+			"display_type": "boost_number",
+			"trait_type": "Durability",
+			"value": "Surprised"
+		},
+		{
+			"display_type": "boost_number",
+			"trait_type": "Aqua Power",
+			"value": 40
+		},
+		{
+			"display_type": "boost_percentage",
+			"trait_type": "Stamina Increase",
+			"value": 10
+		},
+		{
+			"display_type": "number",
+			"trait_type": "Generation",
+			"value": 2
+		}
+	]
+}
