@@ -4,37 +4,45 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract DraupnirToken is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract DraupnirToken is ERC721, ERC721Enumerable, ERC721URIStorage {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
     string public baseTokenURI;
+    address public owner;
     uint256 public MAX_SUPPLY;
     uint256 public MAX_PER_WALLET;
-    uint256 public MINT_PRICE;
+    uint256 public MINT_PRICE = 0.01 ether;
     mapping(address => uint256) public nftsInWallet;
     uint256 public totalMintedNFTs = 0;
 
-    constructor(
-        uint256 _maxSupply,
-        uint256 _walletMax,
-        uint256 _mintPrice
-    ) ERC721("DraupnirToken", "DPT") {
+    event DraupnirMinted(
+        address indexed minter,
+        uint256 indexed nftsMinted,
+        uint256 indexed timeMinted
+    );
+
+    constructor(uint256 _maxSupply, uint256 _walletMax)
+        ERC721("DraupnirToken", "DPT")
+    {
+        owner = msg.sender;
         baseTokenURI = "ipfs://QmbQKHDSqjMK6C6Y2EABgHTUuPS7zo8tU5gfmXdiXwAb58";
         MAX_SUPPLY = _maxSupply;
         MAX_PER_WALLET = _walletMax;
-        MINT_PRICE = _mintPrice;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _;
     }
 
     function safeMint(uint256 _quantity) public payable {
         require(_quantity > 0, "You have to mint at least 1");
-
         require(
-            _quantity + nftsInWallet[msg.sender] < MAX_PER_WALLET,
-            "You've already minted the max amount of NFTs"
+            _quantity + nftsInWallet[msg.sender] <= MAX_PER_WALLET,
+            "Cannot mint more than the max allowance"
         );
 
         // Shows user what the correct value should be
@@ -49,7 +57,8 @@ contract DraupnirToken is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
             )
         );
 
-        for (uint256 n = 0; n <= _quantity; n++) {
+        // mint NFTs
+        for (uint256 n = 0; n < _quantity; n++) {
             _tokenIdCounter.increment();
             totalMintedNFTs++;
             nftsInWallet[msg.sender] += 1;
@@ -57,6 +66,20 @@ contract DraupnirToken is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
             _safeMint(msg.sender, tokenId);
         }
+
+        emit DraupnirMinted(msg.sender, _quantity, block.timestamp);
+    }
+
+    function contractBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
+
+    function withdrawFromContract(uint256 _amount) external onlyOwner {
+        require(_amount > 0, "can't withdraw '0'");
+        require(_amount <= address(this).balance, "insufficient funds");
+
+        (bool success, ) = msg.sender.call{value: _amount}("");
+        require(success, "unable to withdraw funds");
     }
 
     // The following functions are overrides required by Solidity.
