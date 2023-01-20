@@ -1,5 +1,5 @@
 {
-	"description": "This NFT proves I've created and deployed my first ERC20 smart contract on Goerli with Alchemy Road to Web3",
+	"description": "An NFT forged by the gods of the Vikings. It grants its' owner the ability to duplicate the NFT at will.",
 	"external_url": "https://draupnirtokenproject.vercel.app",
 	"image": "https://ipfs.filebase.io/ipfs/QmR9BLCSETwpcfMroPcb6ouur1qT4RKcSNzfQAtVdeACYc",
 	"name": "Draupnir Token",
@@ -15,22 +15,14 @@
 		{
 			"display_type": "boost_number",
 			"trait_type": "Durability",
-			"value": "Surprised"
-		},
-		{
-			"display_type": "boost_number",
-			"trait_type": "Aqua Power",
-			"value": 40
+			"value": 100,
+			"max_value": 100
 		},
 		{
 			"display_type": "boost_percentage",
-			"trait_type": "Stamina Increase",
-			"value": 10
-		},
-		{
-			"display_type": "number",
-			"trait_type": "Generation",
-			"value": 2
+			"trait_type": "Power Remaning",
+			"value": 65,
+			"max_value": 100
 		}
 	]
 }

@@ -75,11 +75,11 @@ contract DraupnirToken is ERC721, ERC721Enumerable, ERC721URIStorage {
     }
 
     function withdrawFromContract(uint256 _amount) external onlyOwner {
-        require(_amount > 0, "can't withdraw '0'");
-        require(_amount <= address(this).balance, "insufficient funds");
+        require(_amount > 0, "Can't withdraw '0'");
+        require(_amount <= address(this).balance, "Insufficient funds");
 
         (bool success, ) = msg.sender.call{value: _amount}("");
-        require(success, "unable to withdraw funds");
+        require(success, "Unable to withdraw funds");
     }
 
     // The following functions are overrides required by Solidity.
