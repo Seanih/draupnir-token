@@ -1,3 +1,5 @@
+//* only testing adjustments & additions I made since base contracts come from OpenZeppelin
+
 const {
 	loadFixture,
 	time,
@@ -7,7 +9,6 @@ const { expect } = require('chai');
 describe('DraupnirToken Tests', function () {
 	const deployAndMintFixture = async () => {
 		let [owner, user1, user2] = await ethers.getSigners();
-
 		let contract = await ethers.getContractFactory('DraupnirToken');
 		let DraupnirContract = await contract.deploy(300, 3);
 		await DraupnirContract.deployed();
