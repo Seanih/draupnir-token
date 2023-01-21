@@ -4,6 +4,7 @@ require('@nomiclabs/hardhat-etherscan');
 require('dotenv').config({ path: __dirname + '/.env.local' });
 
 const ALCHEMY_GOERLI_NODE = process.env.ALCHEMY_GOERLI_NODE;
+const ALCHEMY_MUMBAI_NODE = process.env.ALCHEMY_MUMBAI_NODE;
 const METAMASK_PK = process.env.METAMASK_PK;
 
 /** @type import('hardhat/config').HardhatUserConfig */
